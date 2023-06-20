@@ -1,9 +1,10 @@
+<%@ page import="com.liferay.training.contato.web.constants.CommandNames" %>
 <%@ include file="/init.jsp" %>
 
-<portlet:actionURL name="handleForm" var="actionURL"/>
+<portlet:actionURL name="<%=CommandNames.HANDLE_FORM%>" var="actionURL"/>
 
 <liferay-portlet:renderURL var="listar">
-    <portlet:param name="mvcRenderCommandName" value="listaContatos" />
+    <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.LISTA_CONTATOS%>" />
 </liferay-portlet:renderURL>
 
 <div class="container-fluid-1280 edit-assignment">
@@ -20,22 +21,16 @@
             <aui:validator name="required"/>
             <aui:validator errorMessage="Formato de telefone invalido" name="custom">
                 (val) => {
-                    var regex = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+                    var regExp = new RegExp("^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$");
 
-                    return regex.test(val);
+                    return regExp.test(val);
                 }
             </aui:validator>
         </aui:input>
 
         <aui:input name="email">
             <aui:validator name="required"/>
-            <aui:validator errorMessage="Formato de Email invalido" name="custom">
-                        (val) => {
-                            var wordExpression = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-
-                            return wordExpression.test(val);
-                        }
-            </aui:validator>
+            <aui:validator errorMessage="Formato de Email invalido" name="email" />
         </aui:input>
 
         <aui:input name="idade">
@@ -53,4 +48,3 @@
     </aui:form>
 
 </div>
-

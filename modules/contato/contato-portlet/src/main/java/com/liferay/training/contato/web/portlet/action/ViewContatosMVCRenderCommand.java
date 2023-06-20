@@ -4,6 +4,7 @@ package com.liferay.training.contato.web.portlet.action;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.training.contato.model.Contato;
 import com.liferay.training.contato.service.ContatoLocalService;
+import com.liferay.training.contato.web.constants.CommandNames;
 import com.liferay.training.contato.web.constants.ContatoPortletKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -17,7 +18,7 @@ import java.util.List;
         immediate = true,
         property = {
                 "javax.portlet.name=" + ContatoPortletKeys.CONTATO,
-                "mvc.command.name=listaContatos"
+                "mvc.command.name=" + CommandNames.LISTA_CONTATOS
         },
         service = MVCRenderCommand.class
 )
