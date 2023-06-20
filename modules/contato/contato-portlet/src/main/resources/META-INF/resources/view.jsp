@@ -1,10 +1,6 @@
-<%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %>
+<%@ page import="com.liferay.training.contato.web.constants.CommandNames" %>
 <%@ taglib uri="http://liferay.com/tld/clay" prefix="clay" %>
 <%@ include file="/init.jsp"%>
-
-<liferay-portlet:renderURL var="addContatoURL" windowState="<%=LiferayWindowState.EXCLUSIVE.toString() %>">
-    <portlet:param name="mvcRenderCommandName" value="adicionaContato" />
-</liferay-portlet:renderURL>
 
 <h2>Lista de Contatos</h2>
 
@@ -26,6 +22,7 @@
             <td>${contato.telefone}</td>
             <td>${contato.email}</td>
             <td>${contato.idade}</td>
+            <td><aui:button-row>Editar</aui:button-row></td>
         </tr>
 
     </c:forEach>
@@ -34,12 +31,12 @@
 </table>
 
 
-<portlet:renderURL var="viewAssignmentURL">
-    <portlet:param name="mvcRenderCommandName" value="<%="cadastro"%>" />
+<portlet:renderURL var="cadastroURL">
+    <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.CADASTRO%>" />
     <portlet:param name="redirect" value="${currentURL}" />
 </portlet:renderURL>
 
 <hr>
 
-<aui:button value="Cadastrar Contato" href="<%= viewAssignmentURL %>" cssClass="btn btn-primary" />
+<aui:button value="Cadastrar Contato" href="<%= cadastroURL %>" cssClass="btn btn-primary" />
 
