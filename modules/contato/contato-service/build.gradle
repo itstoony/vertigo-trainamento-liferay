@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:contato:contato-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+buildService {
+	apiDir = "../contato-api/src/main/java"
+}
+
+group = "com.liferay.training.contato"

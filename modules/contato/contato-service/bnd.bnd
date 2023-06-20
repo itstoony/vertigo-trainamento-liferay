@@ -1,0 +1,6 @@
+Bundle-Name: contato-service
+Bundle-SymbolicName: com.liferay.training.contato.service
+Bundle-Version: 1.0.0
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+-dsannotations-options: inherit
