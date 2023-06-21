@@ -1,6 +1,14 @@
-<%@ page import="com.liferay.training.contato.web.constants.CommandNames" %>
 <%@ taglib uri="http://liferay.com/tld/clay" prefix="clay" %>
-<%@ include file="/init.jsp"%>
+<%@ include file="/init.jsp" %>
+
+<%--<liferay-portlet:renderURL var="portletURL">--%>
+<%--    <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.EDIT_FORM%>"/>--%>
+<%--</liferay-portlet:renderURL>--%>
+
+
+<%@ include file="/init.jsp" %>
+
+
 
 <h2>Lista de Contatos</h2>
 
@@ -14,29 +22,38 @@
     </tr>
     </thead>
     <tbody>
-
     <c:forEach var="contato" items="${listaDeContatos}">
 
         <tr>
+
             <td>${contato.nome}</td>
             <td>${contato.telefone}</td>
             <td>${contato.email}</td>
             <td>${contato.idade}</td>
-            <td><aui:button-row>Editar</aui:button-row></td>
+
+            <liferay-portlet:renderURL var="portletURL">
+                <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.EDIT_FORM%>"/>
+                <portlet:param name="contatoId" value="${contato.contatoId}"/>
+            </liferay-portlet:renderURL>
+
+            <td>
+                <aui:button-row>
+                    <aui:button cssClass="btn btn-primary" type="button" value="Editar" onClick="<%=portletURL%>"/>
+                    <aui:button cssClass="btn btn-secondary" type="cancel" value="Excluir"/>
+                </aui:button-row>
+            </td>
+
         </tr>
 
     </c:forEach>
-
     </tbody>
 </table>
 
-
 <portlet:renderURL var="cadastroURL">
-    <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.CADASTRO%>" />
-    <portlet:param name="redirect" value="${currentURL}" />
+    <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.CADASTRO%>"/>
+    <portlet:param name="redirect" value="${currentURL}"/>
 </portlet:renderURL>
 
 <hr>
 
-<aui:button value="Cadastrar Contato" href="<%= cadastroURL %>" cssClass="btn btn-primary" />
-
+<aui:button value="Cadastrar Contato" href="<%= cadastroURL %>" cssClass="btn btn-primary"/>

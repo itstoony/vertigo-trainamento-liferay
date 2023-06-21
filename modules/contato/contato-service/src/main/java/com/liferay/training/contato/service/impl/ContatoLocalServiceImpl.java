@@ -20,11 +20,9 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.training.contato.model.Contato;
 import com.liferay.training.contato.service.base.ContatoLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
@@ -75,7 +73,9 @@ public class ContatoLocalServiceImpl extends ContatoLocalServiceBaseImpl {
 		contato.setEmail(email);
 		contato.setIdade(idade);
 
-		return super.updateContato(contato);
+		contato = super.updateContato(contato);
+
+		return contato;
 	}
 
 	public List<Contato> getContatosByGroupId(long groupId) {
