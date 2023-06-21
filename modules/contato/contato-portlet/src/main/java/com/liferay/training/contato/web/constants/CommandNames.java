@@ -7,6 +7,8 @@ public class CommandNames {
     public static final String CADASTRO = "registerContacts";
     public static final String EDIT_FORM = "editForm";
     public static final String EDIT_FORM_ACTION = "editFormAction";
+    public static final String DELETE_ACTION = "deleteAction";
+    public static final String DELETE_FORM  = "deleteForm";
 
     private CommandNames() {
     }
