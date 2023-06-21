@@ -57,6 +57,11 @@ public class ContatoLocalServiceWrapper
 			groupId, nome, telefone, email, idade, serviceContext);
 	}
 
+	@Override
+	public boolean checkIfEmailExists(String email) {
+		return _contatoLocalService.checkIfEmailExists(email);
+	}
+
 	/**
 	 * Creates a new contato with the primary key. Does not add the contato to the database.
 	 *

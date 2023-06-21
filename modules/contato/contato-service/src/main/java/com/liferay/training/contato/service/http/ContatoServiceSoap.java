@@ -155,6 +155,21 @@ public class ContatoServiceSoap {
 		}
 	}
 
+	public static boolean checkIfEmailExists(String email)
+		throws RemoteException {
+
+		try {
+			boolean returnValue = ContatoServiceUtil.checkIfEmailExists(email);
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(ContatoServiceSoap.class);
 
 }

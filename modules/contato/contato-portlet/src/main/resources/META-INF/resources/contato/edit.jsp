@@ -1,12 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/init.jsp" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
 
 
 <liferay-ui:error key="serviceErrorDetails">
     <liferay-ui:message key="Email já cadastrado" arguments='<%= SessionErrors.get(liferayPortletRequest, "serviceErrorDetails") %>' />
 </liferay-ui:error>
 
-<portlet:actionURL name="<%=CommandNames.HANDLE_FORM%>" var="actionURL"/>
+<portlet:actionURL name="<%=CommandNames.EDIT_FORM_ACTION%>" var="actionURL"/>
 
 <liferay-portlet:renderURL var="listar">
     <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.LISTA_CONTATOS%>" />
@@ -14,21 +14,23 @@
 
 <div class="container-fluid-1280 edit-assignment">
 
-    <h1><liferay-ui:message key="Formulário de Contato"/></h1>
+    <h1><liferay-ui:message key="Editar"/></h1>
 
     <aui:form action="${actionURL}" name="fm" id="meuFormulario">
 
-        <aui:input name="nome" placeholder="Nome" label="Nome">
-            <aui:validator name="required" errorMessage="Campo obrigatório"/>
+        <aui:input name="contatoId" field="contatoId" value="${renderRequest.getAttribute('contatoId')}" type="hidden" />
+
+        <aui:input name="nome" placeholder="Nome" label="Nome" value="${renderRequest.getAttribute('nome')}">
+            <aui:validator name="required" errorMessage="Campo obrigatório" />
             <aui:validator name="custom" errorMessage="Nome inválido">
-                (val) => {
-                    var regExp = new RegExp("^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$");
-                    return regExp.test(val);
-                }
+                        (val) => {
+                            var regExp = new RegExp("^[a-zA-ZÀ-ÖØ-öø-ÿ\séÉ]+$");
+                            return regExp.test(val);
+                        }
             </aui:validator>
         </aui:input>
 
-        <aui:input name="telefone" placeholder="Telefone" label="Telefone" onkeyup="formatarTelefone(this)">
+        <aui:input name="telefone" placeholder="Telefone" label="Telefone" onkeyup="formatarTelefone(this)" value="${renderRequest.getAttribute('telefone')}">
             <aui:validator name="required" errorMessage="Campo obrigatório"/>
             <aui:validator name="custom" errorMessage="Telefone inválido">
                         (val) => {
@@ -38,12 +40,12 @@
             </aui:validator>
         </aui:input>
 
-        <aui:input name="email" placeholder="Email" label="Email">
+        <aui:input name="email" placeholder="Email" label="Email" value="${renderRequest.getAttribute('email')}">
             <aui:validator name="required" errorMessage="Campo obrigatório"/>
-            <aui:validator errorMessage="Formato de Email inválido" name="email" />
+            <aui:validator errorMessage="Formato de Email inválido" name="email"/>
         </aui:input>
 
-        <aui:input name="idade" placeholder="Idade" label="Idade">
+        <aui:input name="idade" placeholder="Idade" label="Idade" value="${renderRequest.getAttribute('idade')}">
             <aui:validator name="required" errorMessage="Campo obrigatório"/>
             <aui:validator name="custom" errorMessage="Idade inválida">
                         (val) => {
@@ -54,9 +56,10 @@
         </aui:input>
 
         <aui:button-row>
-            <aui:button cssClass="btn btn-primary" type="submit" value="Salvar" onClick="return validarFormulario();" />
-            <aui:button cssClass="btn btn-secondary" onClick="${listar}" type="cancel" value="Cancelar" />
+            <aui:button cssClass="btn btn-primary" type="submit" value="Salvar" onClick="return validarFormulario();"/>
+            <aui:button cssClass="btn btn-secondary" onClick="${listar}" type="cancel" value="Cancelar"/>
         </aui:button-row>
+
 
         <hr>
 

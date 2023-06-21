@@ -42,6 +42,11 @@
 			<finder-column name="groupId" />
 		</finder>
 
+		<finder name="findByEmailAddress" return-type="java.util.List">
+			<finder-column name="email" />
+		</finder>
+
+
 		<!-- References -->
 
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />

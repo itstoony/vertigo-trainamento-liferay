@@ -41,6 +41,11 @@ public class ContatoServiceWrapper
 	}
 
 	@Override
+	public boolean checkIfEmailExists(String email) {
+		return _contatoService.checkIfEmailExists(email);
+	}
+
+	@Override
 	public com.liferay.training.contato.model.Contato deleteContato(
 			long contatoId)
 		throws com.liferay.portal.kernel.exception.PortalException {

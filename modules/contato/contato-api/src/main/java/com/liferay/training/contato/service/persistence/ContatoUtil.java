@@ -692,6 +692,65 @@ public class ContatoUtil {
 	}
 
 	/**
+	 * Returns the contato where email = &#63; or throws a <code>NoSuchContatoException</code> if it could not be found.
+	 *
+	 * @param email the email
+	 * @return the matching contato
+	 * @throws NoSuchContatoException if a matching contato could not be found
+	 */
+	public static Contato findByfindByEmailAddress(String email)
+		throws com.liferay.training.contato.exception.NoSuchContatoException {
+
+		return getPersistence().findByfindByEmailAddress(email);
+	}
+
+	/**
+	 * Returns the contato where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param email the email
+	 * @return the matching contato, or <code>null</code> if a matching contato could not be found
+	 */
+	public static Contato fetchByfindByEmailAddress(String email) {
+		return getPersistence().fetchByfindByEmailAddress(email);
+	}
+
+	/**
+	 * Returns the contato where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param email the email
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching contato, or <code>null</code> if a matching contato could not be found
+	 */
+	public static Contato fetchByfindByEmailAddress(
+		String email, boolean useFinderCache) {
+
+		return getPersistence().fetchByfindByEmailAddress(
+			email, useFinderCache);
+	}
+
+	/**
+	 * Removes the contato where email = &#63; from the database.
+	 *
+	 * @param email the email
+	 * @return the contato that was removed
+	 */
+	public static Contato removeByfindByEmailAddress(String email)
+		throws com.liferay.training.contato.exception.NoSuchContatoException {
+
+		return getPersistence().removeByfindByEmailAddress(email);
+	}
+
+	/**
+	 * Returns the number of contatos where email = &#63;.
+	 *
+	 * @param email the email
+	 * @return the number of matching contatos
+	 */
+	public static int countByfindByEmailAddress(String email) {
+		return getPersistence().countByfindByEmailAddress(email);
+	}
+
+	/**
 	 * Caches the contato in the entity cache if it is enabled.
 	 *
 	 * @param contato the contato

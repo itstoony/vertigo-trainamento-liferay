@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -44,11 +45,15 @@ public class HandleFormMVCActionCommand implements MVCActionCommand {
 
             SessionMessages.add(actionRequest, "contactAdded");
 
+            return true;
         } catch (PortalException pe) {
-            pe.printStackTrace();
+            SessionErrors.add(actionRequest, "serviceErrorDetails", pe);
+
+            actionResponse.setRenderParameter(
+                    "mvcRenderCommandName", CommandNames.CADASTRO);
         }
 
-        return true;
+        return false;
     }
 
     @Reference
