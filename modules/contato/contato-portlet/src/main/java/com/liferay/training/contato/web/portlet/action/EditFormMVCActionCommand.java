@@ -2,6 +2,7 @@ package com.liferay.training.contato.web.portlet.action;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.training.contato.service.ContatoLocalService;
 import com.liferay.training.contato.web.constants.CommandNames;
 import com.liferay.training.contato.web.constants.ContatoPortletKeys;
@@ -32,8 +33,11 @@ public class EditFormMVCActionCommand implements MVCActionCommand {
 
         try {
             contatoService.updateContato(contatoId, nome, telefone, email, idade);
-        } catch (PortalException e) {
-            e.printStackTrace();
+        } catch (PortalException pe) {
+            SessionErrors.add(actionRequest, "serviceErrorDetails", pe.getMessage());
+
+            actionResponse.setRenderParameter(
+                    "mvcRenderCommandName", CommandNames.EDIT_FORM);
         }
 
         return true;

@@ -35,11 +35,12 @@ public class EditFormMVCRenderCommand implements MVCRenderCommand {
             renderRequest.setAttribute("email", contato.getEmail());
             renderRequest.setAttribute("idade", contato.getIdade());
 
-        } catch (PortalException e) {
-            e.printStackTrace();
+        } catch (PortalException pe) {
+            pe.printStackTrace();
         }
 
         return "/contato/edit.jsp";
+
     }
 
     @Reference

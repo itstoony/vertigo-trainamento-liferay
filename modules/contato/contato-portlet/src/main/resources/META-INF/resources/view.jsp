@@ -1,14 +1,4 @@
-<%@ taglib uri="http://liferay.com/tld/clay" prefix="clay" %>
 <%@ include file="/init.jsp" %>
-
-<%--<liferay-portlet:renderURL var="portletURL">--%>
-<%--    <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.EDIT_FORM%>"/>--%>
-<%--</liferay-portlet:renderURL>--%>
-
-
-<%@ include file="/init.jsp" %>
-
-
 
 <h2>Lista de Contatos</h2>
 

@@ -1,6 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/init.jsp" %>
 
+
+<liferay-ui:error key="serviceErrorDetails">
+    <liferay-ui:message key="Email já cadastrado" arguments='<%= SessionErrors.get(liferayPortletRequest, "serviceErrorDetails") %>' />
+</liferay-ui:error>
+
 <portlet:actionURL name="<%=CommandNames.EDIT_FORM_ACTION%>" var="actionURL"/>
 
 <liferay-portlet:renderURL var="listar">
@@ -19,7 +24,7 @@
             <aui:validator name="required" errorMessage="Campo obrigatório" />
             <aui:validator name="custom" errorMessage="Nome inválido">
                         (val) => {
-                            var regExp = new RegExp("^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$");
+                            var regExp = new RegExp("^[a-zA-ZÀ-ÖØ-öø-ÿ\séÉ]+$");
                             return regExp.test(val);
                         }
             </aui:validator>

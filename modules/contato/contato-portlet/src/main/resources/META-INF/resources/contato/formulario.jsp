@@ -1,6 +1,11 @@
 <%@ include file="/init.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
+
+<liferay-ui:error key="serviceErrorDetails">
+    <liferay-ui:message key="Email já cadastrado" arguments='<%= SessionErrors.get(liferayPortletRequest, "serviceErrorDetails") %>' />
+</liferay-ui:error>
+
 <portlet:actionURL name="<%=CommandNames.HANDLE_FORM%>" var="actionURL"/>
 
 <liferay-portlet:renderURL var="listar">
