@@ -82,6 +82,8 @@ public interface ContatoLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public boolean checkIfEmailExists(String email);
+
 	/**
 	 * Creates a new contato with the primary key. Does not add the contato to the database.
 	 *

@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.training.contato.exception.NoSuchContatoException;
@@ -51,6 +52,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1961,6 +1963,256 @@ public class ContatoPersistenceImpl
 	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 =
 		"contato.groupId = ?";
 
+	private FinderPath _finderPathFetchByfindByEmailAddress;
+	private FinderPath _finderPathCountByfindByEmailAddress;
+
+	/**
+	 * Returns the contato where email = &#63; or throws a <code>NoSuchContatoException</code> if it could not be found.
+	 *
+	 * @param email the email
+	 * @return the matching contato
+	 * @throws NoSuchContatoException if a matching contato could not be found
+	 */
+	@Override
+	public Contato findByfindByEmailAddress(String email)
+		throws NoSuchContatoException {
+
+		Contato contato = fetchByfindByEmailAddress(email);
+
+		if (contato == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("email=");
+			sb.append(email);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchContatoException(sb.toString());
+		}
+
+		return contato;
+	}
+
+	/**
+	 * Returns the contato where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param email the email
+	 * @return the matching contato, or <code>null</code> if a matching contato could not be found
+	 */
+	@Override
+	public Contato fetchByfindByEmailAddress(String email) {
+		return fetchByfindByEmailAddress(email, true);
+	}
+
+	/**
+	 * Returns the contato where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param email the email
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching contato, or <code>null</code> if a matching contato could not be found
+	 */
+	@Override
+	public Contato fetchByfindByEmailAddress(
+		String email, boolean useFinderCache) {
+
+		email = Objects.toString(email, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {email};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByfindByEmailAddress, finderArgs, this);
+		}
+
+		if (result instanceof Contato) {
+			Contato contato = (Contato)result;
+
+			if (!Objects.equals(email, contato.getEmail())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_CONTATO_WHERE);
+
+			boolean bindEmail = false;
+
+			if (email.isEmpty()) {
+				sb.append(_FINDER_COLUMN_FINDBYEMAILADDRESS_EMAIL_3);
+			}
+			else {
+				bindEmail = true;
+
+				sb.append(_FINDER_COLUMN_FINDBYEMAILADDRESS_EMAIL_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindEmail) {
+					queryPos.add(email);
+				}
+
+				List<Contato> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByfindByEmailAddress, finderArgs,
+							list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {email};
+							}
+
+							_log.warn(
+								"ContatoPersistenceImpl.fetchByfindByEmailAddress(String, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					Contato contato = list.get(0);
+
+					result = contato;
+
+					cacheResult(contato);
+				}
+			}
+			catch (Exception exception) {
+				if (useFinderCache) {
+					finderCache.removeResult(
+						_finderPathFetchByfindByEmailAddress, finderArgs);
+				}
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Contato)result;
+		}
+	}
+
+	/**
+	 * Removes the contato where email = &#63; from the database.
+	 *
+	 * @param email the email
+	 * @return the contato that was removed
+	 */
+	@Override
+	public Contato removeByfindByEmailAddress(String email)
+		throws NoSuchContatoException {
+
+		Contato contato = findByfindByEmailAddress(email);
+
+		return remove(contato);
+	}
+
+	/**
+	 * Returns the number of contatos where email = &#63;.
+	 *
+	 * @param email the email
+	 * @return the number of matching contatos
+	 */
+	@Override
+	public int countByfindByEmailAddress(String email) {
+		email = Objects.toString(email, "");
+
+		FinderPath finderPath = _finderPathCountByfindByEmailAddress;
+
+		Object[] finderArgs = new Object[] {email};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_CONTATO_WHERE);
+
+			boolean bindEmail = false;
+
+			if (email.isEmpty()) {
+				sb.append(_FINDER_COLUMN_FINDBYEMAILADDRESS_EMAIL_3);
+			}
+			else {
+				bindEmail = true;
+
+				sb.append(_FINDER_COLUMN_FINDBYEMAILADDRESS_EMAIL_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindEmail) {
+					queryPos.add(email);
+				}
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				finderCache.removeResult(finderPath, finderArgs);
+
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FINDBYEMAILADDRESS_EMAIL_2 =
+		"contato.email = ?";
+
+	private static final String _FINDER_COLUMN_FINDBYEMAILADDRESS_EMAIL_3 =
+		"(contato.email IS NULL OR contato.email = '')";
+
 	public ContatoPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1988,6 +2240,10 @@ public class ContatoPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {contato.getUuid(), contato.getGroupId()}, contato);
+
+		finderCache.putResult(
+			_finderPathFetchByfindByEmailAddress,
+			new Object[] {contato.getEmail()}, contato);
 
 		contato.resetOriginalValues();
 	}
@@ -2088,6 +2344,14 @@ public class ContatoPersistenceImpl
 			_finderPathCountByUUID_G, args, Long.valueOf(1), false);
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, contatoModelImpl, false);
+
+		args = new Object[] {contatoModelImpl.getEmail()};
+
+		finderCache.putResult(
+			_finderPathCountByfindByEmailAddress, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByfindByEmailAddress, args, contatoModelImpl,
+			false);
 	}
 
 	protected void clearUniqueFindersCache(
@@ -2112,6 +2376,26 @@ public class ContatoPersistenceImpl
 
 			finderCache.removeResult(_finderPathCountByUUID_G, args);
 			finderCache.removeResult(_finderPathFetchByUUID_G, args);
+		}
+
+		if (clearCurrent) {
+			Object[] args = new Object[] {contatoModelImpl.getEmail()};
+
+			finderCache.removeResult(
+				_finderPathCountByfindByEmailAddress, args);
+			finderCache.removeResult(
+				_finderPathFetchByfindByEmailAddress, args);
+		}
+
+		if ((contatoModelImpl.getColumnBitmask() &
+			 _finderPathFetchByfindByEmailAddress.getColumnBitmask()) != 0) {
+
+			Object[] args = new Object[] {contatoModelImpl.getOriginalEmail()};
+
+			finderCache.removeResult(
+				_finderPathCountByfindByEmailAddress, args);
+			finderCache.removeResult(
+				_finderPathFetchByfindByEmailAddress, args);
 		}
 	}
 
@@ -2755,6 +3039,17 @@ public class ContatoPersistenceImpl
 			entityCacheEnabled, finderCacheEnabled, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBygroupId",
 			new String[] {Long.class.getName()});
+
+		_finderPathFetchByfindByEmailAddress = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, ContatoImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByfindByEmailAddress",
+			new String[] {String.class.getName()},
+			ContatoModelImpl.EMAIL_COLUMN_BITMASK);
+
+		_finderPathCountByfindByEmailAddress = new FinderPath(
+			entityCacheEnabled, finderCacheEnabled, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByfindByEmailAddress", new String[] {String.class.getName()});
 
 		_setContatoUtilPersistence(this);
 	}

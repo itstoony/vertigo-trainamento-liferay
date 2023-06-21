@@ -45,6 +45,7 @@ public class HandleFormMVCActionCommand implements MVCActionCommand {
 
             SessionMessages.add(actionRequest, "contactAdded");
 
+            return true;
         } catch (PortalException pe) {
             SessionErrors.add(actionRequest, "serviceErrorDetails", pe);
 
@@ -52,7 +53,7 @@ public class HandleFormMVCActionCommand implements MVCActionCommand {
                     "mvcRenderCommandName", CommandNames.CADASTRO);
         }
 
-        return true;
+        return false;
     }
 
     @Reference

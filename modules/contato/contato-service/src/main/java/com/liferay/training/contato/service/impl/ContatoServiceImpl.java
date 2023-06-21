@@ -58,4 +58,8 @@ public class ContatoServiceImpl extends ContatoServiceBaseImpl {
 		return contatoLocalService.deleteContato(contatoId);
 	}
 
+	public boolean checkIfEmailExists(String email) {
+		return contatoLocalService.checkIfEmailExists(email);
+	}
+
 }

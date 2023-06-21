@@ -255,6 +255,37 @@ public class ContatoServiceHttp {
 		}
 	}
 
+	public static boolean checkIfEmailExists(
+		HttpPrincipal httpPrincipal, String email) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				ContatoServiceUtil.class, "checkIfEmailExists",
+				_checkIfEmailExistsParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, email);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Boolean)returnObj).booleanValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(ContatoServiceHttp.class);
 
 	private static final Class<?>[] _addContatoParameterTypes0 = new Class[] {
@@ -271,5 +302,7 @@ public class ContatoServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _deleteContatoParameterTypes4 =
 		new Class[] {long.class};
+	private static final Class<?>[] _checkIfEmailExistsParameterTypes5 =
+		new Class[] {String.class};
 
 }

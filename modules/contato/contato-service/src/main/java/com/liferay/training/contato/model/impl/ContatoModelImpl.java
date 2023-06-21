@@ -119,11 +119,13 @@ public class ContatoModelImpl
 
 	public static final long COMPANYID_COLUMN_BITMASK = 1L;
 
-	public static final long GROUPID_COLUMN_BITMASK = 2L;
+	public static final long EMAIL_COLUMN_BITMASK = 2L;
 
-	public static final long UUID_COLUMN_BITMASK = 4L;
+	public static final long GROUPID_COLUMN_BITMASK = 4L;
 
-	public static final long NOME_COLUMN_BITMASK = 8L;
+	public static final long UUID_COLUMN_BITMASK = 8L;
+
+	public static final long NOME_COLUMN_BITMASK = 16L;
 
 	public static void setEntityCacheEnabled(boolean entityCacheEnabled) {
 		_entityCacheEnabled = entityCacheEnabled;
@@ -542,7 +544,17 @@ public class ContatoModelImpl
 
 	@Override
 	public void setEmail(String email) {
+		_columnBitmask |= EMAIL_COLUMN_BITMASK;
+
+		if (_originalEmail == null) {
+			_originalEmail = _email;
+		}
+
 		_email = email;
+	}
+
+	public String getOriginalEmail() {
+		return GetterUtil.getString(_originalEmail);
 	}
 
 	@Override
@@ -668,6 +680,8 @@ public class ContatoModelImpl
 		_setOriginalCompanyId = false;
 
 		_setModifiedDate = false;
+
+		_originalEmail = _email;
 
 		_columnBitmask = 0;
 	}
@@ -857,6 +871,7 @@ public class ContatoModelImpl
 	private String _telefone;
 	private int _idade;
 	private String _email;
+	private String _originalEmail;
 	private long _columnBitmask;
 	private Contato _escapedModel;
 

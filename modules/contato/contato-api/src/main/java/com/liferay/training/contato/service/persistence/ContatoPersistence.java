@@ -530,6 +530,51 @@ public interface ContatoPersistence extends BasePersistence<Contato> {
 	public int countBygroupId(long groupId);
 
 	/**
+	 * Returns the contato where email = &#63; or throws a <code>NoSuchContatoException</code> if it could not be found.
+	 *
+	 * @param email the email
+	 * @return the matching contato
+	 * @throws NoSuchContatoException if a matching contato could not be found
+	 */
+	public Contato findByfindByEmailAddress(String email)
+		throws NoSuchContatoException;
+
+	/**
+	 * Returns the contato where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param email the email
+	 * @return the matching contato, or <code>null</code> if a matching contato could not be found
+	 */
+	public Contato fetchByfindByEmailAddress(String email);
+
+	/**
+	 * Returns the contato where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param email the email
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching contato, or <code>null</code> if a matching contato could not be found
+	 */
+	public Contato fetchByfindByEmailAddress(
+		String email, boolean useFinderCache);
+
+	/**
+	 * Removes the contato where email = &#63; from the database.
+	 *
+	 * @param email the email
+	 * @return the contato that was removed
+	 */
+	public Contato removeByfindByEmailAddress(String email)
+		throws NoSuchContatoException;
+
+	/**
+	 * Returns the number of contatos where email = &#63;.
+	 *
+	 * @param email the email
+	 * @return the number of matching contatos
+	 */
+	public int countByfindByEmailAddress(String email);
+
+	/**
 	 * Caches the contato in the entity cache if it is enabled.
 	 *
 	 * @param contato the contato

@@ -47,6 +47,10 @@ public class ContatoServiceUtil {
 			groupId, nome, telefone, email, idade, serviceContext);
 	}
 
+	public static boolean checkIfEmailExists(String email) {
+		return getService().checkIfEmailExists(email);
+	}
+
 	public static Contato deleteContato(long contatoId) throws PortalException {
 		return getService().deleteContato(contatoId);
 	}

@@ -57,6 +57,8 @@ public interface ContatoService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public boolean checkIfEmailExists(String email);
+
 	public Contato deleteContato(long contatoId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

@@ -33,6 +33,7 @@ public class EditFormMVCActionCommand implements MVCActionCommand {
 
         try {
             contatoService.updateContato(contatoId, nome, telefone, email, idade);
+            return false;
         } catch (PortalException pe) {
             SessionErrors.add(actionRequest, "serviceErrorDetails", pe.getMessage());
 
@@ -40,7 +41,7 @@ public class EditFormMVCActionCommand implements MVCActionCommand {
                     "mvcRenderCommandName", CommandNames.EDIT_FORM);
         }
 
-        return true;
+        return false;
     }
 
     @Reference
