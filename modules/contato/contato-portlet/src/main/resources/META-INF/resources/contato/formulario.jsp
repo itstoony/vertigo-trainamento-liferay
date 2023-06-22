@@ -1,4 +1,4 @@
-<%@ include file="/init.jsp" %>
+<%@ include file="../init.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 
@@ -6,7 +6,7 @@
     <liferay-ui:message key="Email já cadastrado" arguments='<%= SessionErrors.get(liferayPortletRequest, "serviceErrorDetails") %>' />
 </liferay-ui:error>
 
-<portlet:actionURL name="<%=CommandNames.HANDLE_FORM%>" var="actionURL"/>
+<portlet:actionURL name="<%=CommandNames.HANDLE_FORM%>" var="handleForm"/>
 
 <liferay-portlet:renderURL var="listar">
     <portlet:param name="mvcRenderCommandName" value="<%=CommandNames.LISTA_CONTATOS%>" />
@@ -16,7 +16,7 @@
 
     <h1><liferay-ui:message key="Formulário de Contato"/></h1>
 
-    <aui:form action="${actionURL}" name="fm" id="meuFormulario">
+    <aui:form action="${handleForm}" name="fm" id="meuFormulario">
 
         <aui:input name="nome" placeholder="Nome" label="Nome">
             <aui:validator name="required" errorMessage="Campo obrigatório"/>
