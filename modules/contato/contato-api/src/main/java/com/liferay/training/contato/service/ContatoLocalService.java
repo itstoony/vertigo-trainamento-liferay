@@ -251,6 +251,10 @@ public interface ContatoLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Contato> getContatosByGroupId(long groupId);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Contato> getContatosByUser(ServiceContext serviceContext)
+		throws PortalException;
+
 	/**
 	 * Returns all the contatos matching the UUID and company.
 	 *

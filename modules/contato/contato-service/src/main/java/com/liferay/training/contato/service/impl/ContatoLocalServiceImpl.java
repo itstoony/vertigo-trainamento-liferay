@@ -103,6 +103,16 @@ public class ContatoLocalServiceImpl extends ContatoLocalServiceBaseImpl {
         return super.deleteContato(contato);
     }
 
+    public List<Contato> getContatosByUser(ServiceContext serviceContext) throws PortalException {
+        long userId = serviceContext.getUserId();
+
+        DynamicQuery dynamicQuery = ContatoLocalServiceUtil.dynamicQuery();
+
+        dynamicQuery.add(RestrictionsFactoryUtil.eq("userId", userId));
+
+        return ContatoLocalServiceUtil.dynamicQuery(dynamicQuery);
+
+    }
     public boolean checkIfEmailExists(String email) {
         try {
             DynamicQuery dynamicQuery = ContatoLocalServiceUtil.dynamicQuery();

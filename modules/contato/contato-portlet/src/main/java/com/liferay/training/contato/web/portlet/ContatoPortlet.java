@@ -1,5 +1,8 @@
 package com.liferay.training.contato.web.portlet;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.training.contato.model.Contato;
 import com.liferay.training.contato.service.ContatoLocalService;
 import com.liferay.training.contato.web.constants.ContatoPortletKeys;
@@ -38,8 +41,13 @@ public class ContatoPortlet extends MVCPortlet {
 
 	@Override
 	public void render(RenderRequest renderRequest, RenderResponse renderResponse) throws IOException, PortletException {
-		List<Contato> listaDeContatos = _contatoLocalService.getContatos(-1, -1);
-		renderRequest.setAttribute("listaDeContatos", listaDeContatos);
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Contato.class.getName(), renderRequest);
+			List<Contato> listaDeContatos = _contatoLocalService.getContatosByUser(serviceContext);
+			renderRequest.setAttribute("listaDeContatos", listaDeContatos);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
 
 		super.render(renderRequest, renderResponse);
 	}

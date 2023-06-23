@@ -1,7 +1,10 @@
 package com.liferay.training.contato.web.portlet.action;
 
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.training.contato.model.Contato;
 import com.liferay.training.contato.service.ContatoLocalService;
 import com.liferay.training.contato.web.constants.CommandNames;
@@ -25,13 +28,16 @@ import java.util.List;
 public class ViewContatosMVCRenderCommand implements MVCRenderCommand {
 
     @Override
-    public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
-
-        List<Contato> listaDeContatos = _contatoLocalService.getContatos(-1, -1);
-        renderRequest.setAttribute("listaDeContatos", listaDeContatos);
+    public String render(RenderRequest renderRequest, RenderResponse renderResponse) {
+        try {
+            ServiceContext serviceContext = ServiceContextFactory.getInstance(Contato.class.getName(), renderRequest);
+            List<Contato> listaDeContatos = _contatoLocalService.getContatosByUser(serviceContext);
+            renderRequest.setAttribute("listaDeContatos", listaDeContatos);
+        } catch (PortalException e) {
+            e.printStackTrace();
+        }
 
         return "/view.jsp";
-
     }
 
     @Reference

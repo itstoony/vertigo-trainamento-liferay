@@ -62,4 +62,8 @@ public class ContatoServiceImpl extends ContatoServiceBaseImpl {
 		return contatoLocalService.checkIfEmailExists(email);
 	}
 
+	public List<Contato> getContatosByUser(ServiceContext serviceContext) throws PortalException {
+		return contatoLocalService.getContatosByUser(serviceContext);
+	}
+
 }

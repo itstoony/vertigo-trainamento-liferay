@@ -67,6 +67,13 @@ public class ContatoServiceUtil {
 		return getService().getContatosByGroupId(groupId);
 	}
 
+	public static List<Contato> getContatosByUser(
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getContatosByUser(serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
