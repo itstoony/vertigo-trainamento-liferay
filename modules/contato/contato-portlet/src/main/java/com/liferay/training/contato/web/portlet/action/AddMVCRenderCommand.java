@@ -16,7 +16,7 @@ import javax.portlet.RenderResponse;
                 "mvc.command.name=" + CommandNames.CADASTRO
         }
 )
-public class HandleFormMVCRenderCommand implements MVCRenderCommand {
+public class AddMVCRenderCommand implements MVCRenderCommand {
 
     @Override
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {

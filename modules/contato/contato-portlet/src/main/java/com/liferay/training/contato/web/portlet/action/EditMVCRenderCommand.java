@@ -20,7 +20,7 @@ import javax.portlet.RenderResponse;
                 "mvc.command.name=" + CommandNames.EDIT_FORM
         }
 )
-public class EditFormMVCRenderCommand implements MVCRenderCommand {
+public class EditMVCRenderCommand implements MVCRenderCommand {
 
     @Override
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
