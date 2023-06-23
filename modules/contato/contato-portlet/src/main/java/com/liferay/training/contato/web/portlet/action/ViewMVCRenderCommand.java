@@ -12,7 +12,6 @@ import com.liferay.training.contato.web.constants.ContatoPortletKeys;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.List;
         },
         service = MVCRenderCommand.class
 )
-public class ViewContatosMVCRenderCommand implements MVCRenderCommand {
+public class ViewMVCRenderCommand implements MVCRenderCommand {
 
     @Override
     public String render(RenderRequest renderRequest, RenderResponse renderResponse) {

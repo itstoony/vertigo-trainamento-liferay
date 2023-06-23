@@ -20,7 +20,7 @@ import javax.portlet.PortletException;
                 "mvc.command.name=" + CommandNames.EDIT_FORM_ACTION
         }
 )
-public class EditFormMVCActionCommand implements MVCActionCommand {
+public class EditMVCActionCommand implements MVCActionCommand {
 
     @Override
     public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {

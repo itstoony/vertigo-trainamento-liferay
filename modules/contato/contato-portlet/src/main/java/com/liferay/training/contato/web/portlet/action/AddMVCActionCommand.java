@@ -26,7 +26,7 @@ import javax.portlet.ActionResponse;
         },
         service = MVCActionCommand.class
 )
-public class HandleFormMVCActionCommand implements MVCActionCommand {
+public class AddMVCActionCommand implements MVCActionCommand {
 
     @Override
     public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) {
