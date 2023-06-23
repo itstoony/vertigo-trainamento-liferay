@@ -69,6 +69,15 @@ public class ContatoServiceWrapper
 		return _contatoService.getContatosByGroupId(groupId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.training.contato.model.Contato>
+			getContatosByUser(
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contatoService.getContatosByUser(serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

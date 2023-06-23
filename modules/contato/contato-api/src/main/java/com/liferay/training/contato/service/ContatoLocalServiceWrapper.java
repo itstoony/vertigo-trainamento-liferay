@@ -301,6 +301,15 @@ public class ContatoLocalServiceWrapper
 		return _contatoLocalService.getContatosByGroupId(groupId);
 	}
 
+	@Override
+	public java.util.List<com.liferay.training.contato.model.Contato>
+			getContatosByUser(
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _contatoLocalService.getContatosByUser(serviceContext);
+	}
+
 	/**
 	 * Returns all the contatos matching the UUID and company.
 	 *

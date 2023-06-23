@@ -68,6 +68,10 @@ public interface ContatoService extends BaseService {
 	public List<Contato> getContatosByGroupId(long groupId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Contato> getContatosByUser(ServiceContext serviceContext)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *

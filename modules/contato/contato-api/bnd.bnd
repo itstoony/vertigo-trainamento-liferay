@@ -5,6 +5,7 @@ Export-Package:\
 	com.liferay.training.contato.exception,\
 	com.liferay.training.contato.model,\
 	com.liferay.training.contato.service,\
-	com.liferay.training.contato.service.persistence
+	com.liferay.training.contato.service.persistence,\
+    com.liferay.training.contato.constants
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../contato-service/service.xml

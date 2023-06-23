@@ -170,6 +170,26 @@ public class ContatoServiceSoap {
 		}
 	}
 
+	public static com.liferay.training.contato.model.ContatoSoap[]
+			getContatosByUser(
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.training.contato.model.Contato>
+				returnValue = ContatoServiceUtil.getContatosByUser(
+					serviceContext);
+
+			return com.liferay.training.contato.model.ContatoSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(ContatoServiceSoap.class);
 
 }
