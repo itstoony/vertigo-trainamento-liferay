@@ -22,7 +22,7 @@
             <aui:validator name="required" errorMessage="Campo obrigatório"/>
             <aui:validator name="custom" errorMessage="Nome inválido">
                 (val) => {
-                    var regExp = new RegExp("^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$");
+                    var regExp = new RegExp("^[a-zA-Zà-úÀ-Ú]+(?: [a-zA-Zà-úÀ-Ú]+)*$");
                     return regExp.test(val);
                 }
             </aui:validator>
